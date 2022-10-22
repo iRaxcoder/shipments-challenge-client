@@ -10,7 +10,7 @@ import {
 import PlayCircleFilledWhiteIcon from "@mui/icons-material/PlayCircleFilledWhite";
 
 import { useFetch } from "../../hooks/useFetch";
-import { ShipmentItem } from "../../components/Shipments/shipmentItem";
+import { ShipmentItem } from "../../components/Shipments/ShipmentItem";
 
 export const Main = () => {
   const [pendingPackages, setPendingPackages] = useState();
