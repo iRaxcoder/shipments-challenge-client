@@ -16,6 +16,8 @@ export const AddPackage = ({ reloadPackages }) => {
 
   const { data, errors: errors2, isLoading } = useFetch("/locations/get");
 
+  const [selectedLocation, setSelectedLocation] = useState();
+
   const [modalMessage, setModalMsg] = useState({ open: false, msg: "" });
 
   const [locations, setLocations] = useState([]);
@@ -27,11 +29,15 @@ export const AddPackage = ({ reloadPackages }) => {
   }, [data]);
 
   const onAddPackage = (values) => {
-    packageService.insert(values).then((response) => {
-      setModalMsg({ msg: response.msg, open: true });
-      reloadPackages();
-      reset();
-    });
+    console.log(values);
+    console.log(selectedLocation);
+    packageService
+      .insert({ name: values.packageName, location: selectedLocation.NAME })
+      .then((response) => {
+        setModalMsg({ msg: response.msg, open: true });
+        reloadPackages();
+        reset();
+      });
   };
 
   return (
@@ -65,8 +71,14 @@ export const AddPackage = ({ reloadPackages }) => {
           <Grid item>
             <Autocomplete
               id="destination-input"
+              isOptionEqualToValue={(o) => o.LOCATION_ID}
               options={locations}
-              getOptionLabel={(option) => option.NAME}
+              onChange={(event, newValue) => {
+                setSelectedLocation(newValue);
+              }}
+              getOptionLabel={(option) =>
+                option.NAME + " (" + option.DISTANCE + "KM away)"
+              }
               getOptionDisabled={(option) => option.STATUS == 1}
               renderInput={(params) => (
                 <TextField
