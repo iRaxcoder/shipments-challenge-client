@@ -24,13 +24,10 @@ export const AddPackage = ({ reloadPackages }) => {
 
   useEffect(() => {
     setLocations(data);
-
     return () => {};
   }, [data]);
 
   const onAddPackage = (values) => {
-    console.log(values);
-    console.log(selectedLocation);
     packageService
       .insert({ name: values.packageName, location: selectedLocation.NAME })
       .then((response) => {
