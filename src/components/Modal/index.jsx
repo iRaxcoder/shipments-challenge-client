@@ -21,7 +21,7 @@ export const Modal = (props) => {
           </Button>
         )}
 
-        <Button onClick={props.onClose}>Cancel</Button>
+        <Button onClick={props.onClose}>Return</Button>
       </DialogActions>
     </Dialog>
   );
